@@ -12,19 +12,28 @@ public class Book {
     private String title;
     private String author;
     private boolean available;
+    private Person borrower;
 
-    public Book(String title, String author, boolean borrowed) {
-        this(title, author);
-        this.available = !borrowed;
+    public Book(String title, String author, Person borrower) {
+        if(title == null || title.isEmpty()) throw new IllegalArgumentException("Title can't be null or empty");
+        this.title = title;
+        if(author == null || author.isEmpty()) throw new IllegalArgumentException("Author can't be null or empty");
+        this.author = author;
+
+        this.id = UUID.randomUUID().toString();
+        available = true;
+
+        if(borrower != null) {
+            this.borrower = borrower;
+            borrower.loanBook(this);
+            this.available = false;
+        }
     }
 
     public Book(String title, String author) {
-        this.id = UUID.randomUUID().toString();
-        this.title = title;
-        this.author = author;
+        this(title, author, null);
     }
 
-    // Should have info on who has borrowed the book
 
     public String getId() {
         return id;
@@ -43,10 +52,9 @@ public class Book {
     }
 
     public String getBookInformation() {
-        // id, title, author, available
-        String isAvailable = "no";
-        if(isAvailable()) {
-            isAvailable = "yes";
+        String isAvailable = "Yes";
+        if(!isAvailable()) {
+            isAvailable = "No \nborrower: " + borrower.getFirstName() + " " + borrower.getLastName();
         }
         return "\ntitle: " + getTitle() + "\nauthor: " + getAuthor() + "\navailable: " + isAvailable + "\nid: " + getId();
     }

@@ -17,8 +17,11 @@ public class Person {
 
 
     public Person(String firstName, String lastName) {
+        if(firstName == null || firstName.isEmpty()) throw new IllegalArgumentException("First name can't be null or empty");
         this.firstName = firstName;
+        if(lastName == null || lastName.isEmpty()) throw new IllegalArgumentException("Last name can't be null or empty");
         this.lastName = lastName;
+
         this.id = getNextId();
     }
 

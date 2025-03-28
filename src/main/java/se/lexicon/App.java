@@ -8,11 +8,9 @@ import java.util.Arrays;
 public class App {
     public static void main(String[] args) {
         // Initialize and display Book & Person instances
-        Book mockingbird = new Book("To Kill a Mockingbird", "Harper Lee");
-        Book ninteeneightyfour = new Book("1984", "George Orwell", false);
-        Book greatgatsby = new Book("The Great Gatsby", "F. Scott Fitzgerald", false);
+        Book ninteeneightyfour = new Book("1984", "George Orwell");
+        Book greatgatsby = new Book("The Great Gatsby", "F. Scott Fitzgerald");
 
-        System.out.println(mockingbird.getBookInformation());
         System.out.println(ninteeneightyfour.getBookInformation());
         System.out.println(greatgatsby.getBookInformation());
 
@@ -25,9 +23,13 @@ public class App {
         System.out.println("==========");
 
         // Simulate borrowing a book
-        johnd.loanBook(mockingbird);
+        Book mockingbird = new Book("To Kill a Mockingbird", "Harper Lee", johnd);
         johnd.loanBook(greatgatsby);
         johnd.getAllLoanedBooks();
+
+        System.out.println("==========");
+
+        System.out.println(mockingbird.getBookInformation());
 
         System.out.println("==========");
 
